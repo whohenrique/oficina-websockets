@@ -74,6 +74,16 @@
         socket.emit("send message", messageInput.value);
       });
 
+    
+      socket.on("message history", (history) => {
+        ul.innerHTML = "";
+        history.forEach((msg) => {
+          const message = document.createElement("li");
+          message.innerText = msg;
+          ul.append(message);
+        });
+      });
+
       socket.on("send message", (msg) => {
         console.log("olha a mensagem", msg);
         const message = document.createElement("li");
@@ -81,6 +91,22 @@
 
         ul.append(message);
         messageInput.value = "";
+      });
+
+   
+      socket.on("user connected", (msg) => {
+        const message = document.createElement("li");
+        message.innerText = msg;
+        message.style.fontWeight = "bold"; 
+        ul.append(message);
+      });
+
+     
+      socket.on("user disconnected", (msg) => {
+        const message = document.createElement("li");
+        message.innerText = msg;
+        message.style.fontWeight = "bold"; 
+        ul.append(message);
       });
     </script>
   </body>
